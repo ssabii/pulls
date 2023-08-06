@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "../build",
+    "baseUrl": ".",
+  },
+  "include": [
+    "**/*"
+  ]
+}
