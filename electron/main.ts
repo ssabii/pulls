@@ -1,13 +1,24 @@
+import path from 'path'
+import isDev from 'electron-is-dev';
 import { app, BrowserWindow } from 'electron'
 
 let mainWindow: BrowserWindow | null
 
 const createWindow =  () => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
   })
-  mainWindow.loadURL('http://localhost:3000')
+
+  const url = isDev
+    ? 'http://localhost:3000'
+    : `file://${path.join(__dirname, '../build/index.html')}`
+
+  mainWindow.loadURL(url)
+
+  if(isDev){
+    mainWindow.webContents.openDevTools()
+  }
 }
 
 app.whenReady().then(() => {
