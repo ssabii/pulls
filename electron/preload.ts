@@ -1,4 +1,4 @@
-import { contextBridge } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 const versions = {
   node: () => process.versions.node,
@@ -9,4 +9,11 @@ const versions = {
 
 contextBridge.exposeInMainWorld('versions', versions)
 
+const dialog = {
+  openFile: () => ipcRenderer.invoke('dialog:openFile')
+}
+
+contextBridge.exposeInMainWorld('dialog', dialog)
+
 export type Versions = typeof versions
+export type Dialog = typeof dialog
