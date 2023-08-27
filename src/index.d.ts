@@ -1,3 +1,3 @@
 declare interface Window {
-  versions: import('../electron/preload').Versions
+  tokenApi: import('../electron/IpcChannel/token').TokenApi;
 }
