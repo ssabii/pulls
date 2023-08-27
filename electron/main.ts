@@ -1,6 +1,7 @@
 import path from 'path'
 import isDev from 'electron-is-dev';
-import { app, BrowserWindow, dialog, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import { tokenChannels } from './IpcChannel/token';
 
 let mainWindow: BrowserWindow | null
 
@@ -24,15 +25,10 @@ const createWindow =  () => {
   }
 }
 
-async function handleFileOpen() {
-  const { canceled, filePaths } = await dialog.showOpenDialog({})
-  if(!canceled) {
-    return filePaths[0]
-  }
-}
-
 app.whenReady().then(() => {
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle(tokenChannels.get.name, tokenChannels.get.handle)
+  ipcMain.handle(tokenChannels.set.name, tokenChannels.set.handle)
+
   createWindow()
 
   app.on('activate', () => {
