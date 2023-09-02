@@ -1,3 +1,4 @@
+/* eslint-disable */
 // tailwind.config.js
 const { nextui } = require("@nextui-org/react");
 
