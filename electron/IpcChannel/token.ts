@@ -1,18 +1,18 @@
-import { IpcMainInvokeEvent, ipcRenderer } from 'electron'
-import keytar from 'keytar'
+import { IpcMainInvokeEvent, ipcRenderer } from 'electron';
+import keytar from 'keytar';
 
 const channels = {
   getToken: 'getToken',
   setToken: 'setToken',
-}
+};
 
 const getToken = () => {
-  return keytar.getPassword('pulls', 'test')
-}
+  return keytar.getPassword('pulls', 'test');
+};
 
 const setToken = async (token: string) => {
-  keytar.setPassword('pulls', 'test', token)
-}
+  keytar.setPassword('pulls', 'test', token);
+};
 
 interface IpcChannel {
   name: string;
@@ -34,13 +34,13 @@ export const tokenChannels: IpcChannels = {
     name: channels.setToken,
     handle: (_: IpcMainInvokeEvent, token: string) => setToken(token),
   }
-}
+};
 
 // Context Bridge
 export const tokenApi = {
   getToken: () => ipcRenderer.invoke(channels.getToken),
   setToken: (token: string) => ipcRenderer.invoke(channels.setToken, token),
-}
+};
 
 // Renderer Process
 export type TokenApi = {

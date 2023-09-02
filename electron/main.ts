@@ -1,9 +1,11 @@
-import path from 'path'
+import path from 'path';
 import isDev from 'electron-is-dev';
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { tokenChannels } from './IpcChannel/token';
+import { storeChannels } from './IpcChannel/store';
+import Store from 'electron-store';
 
-let mainWindow: BrowserWindow | null
+let mainWindow: BrowserWindow | null;
 
 const createWindow =  () => {
   mainWindow = new BrowserWindow({
@@ -13,33 +15,38 @@ const createWindow =  () => {
       nodeIntegration: true,
       preload:path.join(__dirname, '../build/preload.js'),
     }
-  })
+  });
 
   const url = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`
+    : `file://${path.join(__dirname, '../build/index.html')}`;
 
-  mainWindow.loadURL(url)
+  mainWindow.loadURL(url);
 
   if(isDev){
-    mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
   }
-}
+};
 
 app.whenReady().then(() => {
   Object
     .values(tokenChannels)
     .forEach(({ name, handle }) => {
-      ipcMain.handle(name, handle)
-    })
-
-  createWindow()
+      ipcMain.handle(name, handle);
+    });
+  Object
+    .values(storeChannels)
+    .forEach(({ name, handle }) => {
+      ipcMain.handle(name, handle);
+    });
+  Store.initRenderer();
+  createWindow();
 
   app.on('activate', () => {
-    if(BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
+    if(BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-})
+  if (process.platform !== 'darwin') app.quit();
+});
