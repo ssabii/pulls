@@ -1,9 +1,10 @@
 import path from 'path';
 import isDev from 'electron-is-dev';
+import Store from 'electron-store';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { tokenChannels } from './IpcChannel/token';
 import { storeChannels } from './IpcChannel/store';
-import Store from 'electron-store';
+import { themeChannels } from './IpcChannel/theme';
 
 let mainWindow: BrowserWindow | null;
 
@@ -36,6 +37,11 @@ app.whenReady().then(() => {
     });
   Object
     .values(storeChannels)
+    .forEach(({ name, handle }) => {
+      ipcMain.handle(name, handle);
+    });
+  Object
+    .values(themeChannels)
     .forEach(({ name, handle }) => {
       ipcMain.handle(name, handle);
     });
