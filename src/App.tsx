@@ -2,6 +2,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
+import { Theme } from "../electron/IpcChannel/theme";
 
 
 function App() {
@@ -21,14 +22,19 @@ function App() {
     window.storeApi.setStore('username', value);
   };
 
+  const handleClickTheme = (theme: Theme) => {
+    setTheme(theme);
+    window.themeApi.setTheme(theme);
+  };
+
   return (
     <div className="h-screen p-4">
       <div className='flex flex-col'>
         <div>current theme is: {theme}</div>
         <div className='flex gap-2'>
-          <Button onClick={() => setTheme('light')}>Light</Button>
-          <Button onClick={() => setTheme('dark')}>Dark</Button>
-          <Button onClick={() => setTheme('system')}>System</Button>
+          <Button onClick={() => handleClickTheme('light')}>Light</Button>
+          <Button onClick={() => handleClickTheme('dark')}>Dark</Button>
+          <Button onClick={() => handleClickTheme('system')}>System</Button>
         </div>
       </div>
       <div>
