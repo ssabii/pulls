@@ -27,9 +27,11 @@ const createWindow =  () => {
 }
 
 app.whenReady().then(() => {
-  const { get, set } = tokenChannels
-  ipcMain.handle(get.name, get.handle)
-  ipcMain.handle(set.name, set.handle)
+  Object
+    .values(tokenChannels)
+    .forEach(({ name, handle }) => {
+      ipcMain.handle(name, handle)
+    })
 
   createWindow()
 
