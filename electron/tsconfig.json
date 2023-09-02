@@ -6,7 +6,6 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "outDir": "../build",
-    "baseUrl": ".",
   },
   "include": [
     "**/*"
