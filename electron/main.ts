@@ -2,6 +2,8 @@ import path from 'path';
 import isDev from 'electron-is-dev';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { tokenChannels } from './IpcChannel/token';
+import { storeChannels } from './IpcChannel/store';
+import Store from 'electron-store';
 
 let mainWindow: BrowserWindow | null;
 
@@ -32,7 +34,12 @@ app.whenReady().then(() => {
     .forEach(({ name, handle }) => {
       ipcMain.handle(name, handle);
     });
-
+  Object
+    .values(storeChannels)
+    .forEach(({ name, handle }) => {
+      ipcMain.handle(name, handle);
+    });
+  Store.initRenderer();
   createWindow();
 
   app.on('activate', () => {
