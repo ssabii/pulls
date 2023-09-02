@@ -1,21 +1,21 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
 
   const getToken = async () => {
-    const token = await window.tokenApi.getToken()
-    setValue(token ?? '')
-  }
+    const token = await window.tokenApi.getToken();
+    setValue(token ?? '');
+  };
 
   const setToken = () => {
-    window.tokenApi.setToken(value)
-  }
+    window.tokenApi.setToken(value);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }
+  };
 
   return (
     <div>
@@ -23,7 +23,7 @@ function App() {
       <button onClick={getToken}>Get Token</button>
       <button onClick={setToken}>Set Token</button>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
