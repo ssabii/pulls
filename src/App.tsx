@@ -3,6 +3,8 @@ import { Input } from "@nextui-org/input";
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { Theme } from "../electron/IpcChannel/theme";
+import { useQuery } from "@apollo/client";
+import { GetSearchDocument, SearchType } from "./gql/graphql";
 
 
 function App() {
@@ -27,6 +29,14 @@ function App() {
     window.themeApi.setTheme(theme);
   };
 
+  const { data } = useQuery(GetSearchDocument, {
+    variables: {
+      query: "is:closed is:pr review-requested:ssabii archived:false",
+      type: SearchType.Issue,
+      first: 10
+    }
+  });
+  console.log(data);
   return (
     <div className="h-screen p-4">
       <div className='flex flex-col'>
