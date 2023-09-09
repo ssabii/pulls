@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
@@ -8,12 +9,12 @@ const config: CodegenConfig = {
       'https://api.github.com/graphql': {
         headers: {
           'user-agent': 'node.js',
-          Authorization: `Bearer ${import.meta.env.BASE_URL}`,
+          Authorization: `Bearer ${process.env.VITE_TOKEN}`,
         },
       },
     },
   ],
-  documents: ['src/**/*.(tsx|ts)'],
+  documents: ['src/graphql/*.gql'],
   generates: {
     "src/gql/": {
       preset: "client",
