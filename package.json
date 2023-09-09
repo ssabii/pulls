@@ -10,11 +10,12 @@
     "start:electron": "electron ./build/main.js",
     "build:electron": "tsc -p electron/tsconfig.json",
     "dev:electron": "concurrently \"yarn dev\" \"yarn build:electron && yarn start:electron\"",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen -r dotenv/config"
   },
   "dependencies": {
     "@apollo/client": "^3.8.3",
     "@nextui-org/react": "^2.1.8",
+    "dotenv": "^16.3.1",
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.1.0",
     "framer-motion": "^10.16.2",
