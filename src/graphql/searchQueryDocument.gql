@@ -1,0 +1,43 @@
+query getSearch($query: String!, $type: SearchType!, $first: Int) {
+  search(query: $query, type: $type, first: $first) {
+    issueCount
+    nodes {
+      ... on PullRequest {
+        number
+        createdAt
+        updatedAt
+        title
+        headRefName
+        url
+        deletions
+        additions
+        isDraft
+        isReadByViewer
+        author {
+          login
+          avatarUrl
+        }
+        repository {
+          name
+        }
+        labels(first: 5) {
+          nodes {
+            name
+            color
+          }
+        }
+        reviews(states: APPROVED, first: 10) {
+          totalCount
+          edges {
+            node {
+              author {
+                login
+              }
+            }
+          }
+        }
+      }
+    }
+    repositoryCount
+  }
+}
