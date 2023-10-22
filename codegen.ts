@@ -4,7 +4,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 const config: CodegenConfig = {
   overwrite: true,
   ignoreNoDocuments: true,
-  schema:[
+  schema: [
     {
       'https://api.github.com/graphql': {
         headers: {
@@ -16,9 +16,14 @@ const config: CodegenConfig = {
   ],
   documents: ['src/graphql/*.gql'],
   generates: {
-    "src/gql/": {
-      preset: "client",
-      plugins: ['typescript'],
+    "src/graphql/generated.ts": {
+      plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+      config: {
+        withHooks: true,
+        scalars: {
+          URI: 'string',
+        }
+      }
     },
   },
 };
