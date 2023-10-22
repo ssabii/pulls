@@ -3,9 +3,7 @@ import { Input } from "@nextui-org/input";
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { Theme } from "../electron/IpcChannel/theme";
-import { useQuery } from "@apollo/client";
-import { GetSearchDocument, SearchType } from "./gql/graphql";
-
+import { useGetSearchQuery, SearchType } from "./graphql/generated";
 
 function App() {
   const [value, setValue] = useState('');
@@ -29,13 +27,14 @@ function App() {
     window.themeApi.setTheme(theme);
   };
 
-  const { data } = useQuery(GetSearchDocument, {
+  const { data } = useGetSearchQuery({
     variables: {
-      query: "is:closed is:pr review-requested:ssabii archived:false",
+      query: "is:open is:pr review-requested:ssabii archived:false",
       type: SearchType.Issue,
       first: 10
     }
   });
+
   console.log(data);
   return (
     <div className="h-screen p-4">
