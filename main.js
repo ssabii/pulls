@@ -10,7 +10,7 @@ function createWindow() {
     }
   })
 
-  win.loadFile(`file://${__dirname}/index.html`)
+  win.loadFile(`index.html`)
 }
 
 app.whenReady().then(() => {
