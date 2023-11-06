@@ -1,26 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "es6",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "target": "es2022",
+    "outDir": "./build/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
   },
   "include": [
-    "src"
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "first-run.js",
+    "main.js"
   ]
 }
